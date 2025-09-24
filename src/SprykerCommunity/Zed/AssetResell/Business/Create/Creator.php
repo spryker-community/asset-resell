@@ -26,9 +26,6 @@ class Creator
     {
         $assetTransfer = $this->findAssetToCreateOffer($idAsset);
 
-        //TODO: remove
-        $assetTransfer->setSku('419869');
-
         if ($assetTransfer === null || $assetTransfer->getSku() === null || $assetTransfer->getStatus() !== SelfServicePortalConfig::STATUS_APPROVED) {
             return (new ResaleOfferResponseTransfer())->setIsSuccessful(false);
         }
