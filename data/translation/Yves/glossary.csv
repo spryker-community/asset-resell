@@ -1,0 +1,30 @@
+customer.ssp_asset.resell,Sell,en_US
+customer.ssp_asset.resell,Verkaufen,de_DE
+customer.ssp_asset.resell.title,Sell Asset,en_US
+customer.ssp_asset.resell.title,Asset verkaufen,de_DE
+customer.ssp_asset.resell.description,You are about to sell the asset "%asset_name%". Please provide the condition and price for this asset.,en_US
+customer.ssp_asset.resell.description,"Sie sind dabei, das Asset ""%asset_name%"" zu verkaufen. Bitte geben Sie den Zustand und Preis für dieses Asset an.",de_DE
+customer.ssp_asset.resell.asset_info,Asset Information,en_US
+customer.ssp_asset.resell.asset_info,Asset-Informationen,de_DE
+customer.ssp_asset.resell.form_title,Resell Details,en_US
+customer.ssp_asset.resell.form_title,Wiederverkauf-Details,de_DE
+customer.ssp_asset.resell.condition,Condition,en_US
+customer.ssp_asset.resell.condition,Zustand,de_DE
+customer.ssp_asset.resell.price,Price,en_US
+customer.ssp_asset.resell.price,Preis,de_DE
+customer.ssp_asset.resell.submit,List for Sale,en_US
+customer.ssp_asset.resell.submit,Zum Verkauf anbieten,de_DE
+customer.ssp_asset.list.sku,SKU,en_US
+customer.ssp_asset.list.sku,SKU,de_DE
+self_service_portal.asset.resell.condition,Condition,en_US
+self_service_portal.asset.resell.condition,Zustand,de_DE
+self_service_portal.asset.resell.condition.placeholder,Select condition,en_US
+self_service_portal.asset.resell.condition.placeholder,Zustand auswählen,de_DE
+self_service_portal.asset.resell.price,Price,en_US
+self_service_portal.asset.resell.price,Preis,de_DE
+self_service_portal.asset.success.resell,Asset has been successfully listed for sale,en_US
+self_service_portal.asset.success.resell,Asset wurde erfolgreich zum Verkauf angeboten,de_DE
+self_service_portal.asset.error.resell,Failed to list asset for sale,en_US
+self_service_portal.asset.error.resell,Asset konnte nicht zum Verkauf angeboten werden,de_DE
+customer.order.create_asset,Create asset,en_US
+customer.order.create_asset,Asset erstellen,de_DE

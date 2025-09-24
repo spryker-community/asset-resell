@@ -1,0 +1,134 @@
+{% extends view('list-asset', '@SprykerFeature:SelfServicePortal') %}
+
+{% block filtersToggler %}
+    <button class="button button--hollow button--hollow-active js-filter-button" data-qa="component filters-button">
+        {% include atom('icon') with {
+            modifiers: ['filter'],
+            class: 'spacing-right',
+            data: {
+                name: 'filter',
+            },
+        } only %}
+        {{ 'customer.account.button.search_filters' | trans }}
+    </button>
+
+    {% include molecule('toggler-click') with {
+        attributes: {
+            'trigger-class-name': 'js-filter-button',
+            'target-class-name': 'js-filter-section',
+            'trigger-class-to-toggle': 'button--hollow-active',
+        },
+    } only %}
+{% endblock %}
+
+{% block customerContent %}
+    {% include molecule('action-bar') with {
+        modifiers: ['first'],
+        data: {
+            title: 'customer.account.ssp_assets' | trans,
+            actions: [
+                {
+                    block: block('filtersToggler',)
+                },
+                {
+                    block: block('actions'),
+                },
+            ],
+        },
+    } only %}
+
+    {{ block('list') }}
+{% endblock %}
+
+{% block assets %}
+    {% set columns = [
+        {
+            id: 'reference',
+            title: 'customer.ssp_asset.list.reference',
+            sortable: true,
+        },
+        {
+            id: 'image',
+            title: 'customer.ssp_asset.list.image',
+            type: 'image',
+        },
+        {
+            id: 'name',
+            title: 'customer.ssp_asset.list.name',
+            sortable: true,
+        },
+        {
+            id: 'serial_number',
+            title: 'customer.ssp_asset.list.serial_number',
+            sortable: true,
+        },
+        {
+            id: 'business_unit',
+            title: 'customer.ssp_asset.list.business_unit',
+        },
+        {
+            id: 'actions',
+            type: 'actions',
+        },
+    ] %}
+
+    {% set rows = data.assets | map(sspAsset => {
+        reference: sspAsset.reference,
+        image: sspAsset.image ? url('customer/ssp-asset/view-image', { 'ssp-asset-reference': sspAsset.reference }) : (sspAsset.externalImageUrl ?: null),
+        name: sspAsset.name,
+        business_unit: sspAsset.companyBusinessUnit ? (sspAsset.companyBusinessUnit.name ~ (sspAsset.companyBusinessUnit.company.name is defined ? ' (' ~ sspAsset.companyBusinessUnit.company.name ~ ')' : '')) : '',
+        serial_number: sspAsset.serialNumber,
+        status: { label: "ssp_asset.status.#{sspAsset.status}", status: sspAsset.status },
+        actions: [
+            {
+                url: path('customer/ssp-asset/details', { reference: sspAsset.reference }),
+                label: 'customer.ssp_asset.view_ssp_asset',
+                icon: 'eye',
+                iconModifier: 'big',
+                title: 'customer.ssp_asset.view_ssp_asset'
+            }
+        ] | merge(sspAsset.sku is not null and sspAsset.sku is not empty ? [{
+            url: path('customer/ssp-asset/resell', { reference: sspAsset.reference }),
+            label: 'customer.ssp_asset.resell',
+            icon: 'tag',
+            iconModifier: 'big',
+            title: 'customer.ssp_asset.resell'
+        }] : []),
+    }) %}
+
+    {% block table %}
+        {% include molecule('advanced-table', 'SelfServicePortal') with {
+            data: {
+                columns: columns,
+                rows: rows,
+                emptyText: 'customer.account.no_ssp_assets',
+                sortableForm: data.searchForm,
+                sortableFormClass: formClass,
+                pagination: data.pagination,
+            },
+            qa: 'advanced-table-ssp-assets',
+        } only %}
+    {% endblock %}
+{% endblock %}
+
+{% block filters %}
+    {% include molecule('filters', 'SelfServicePortal') with {
+        class: 'is-hidden box box--small js-filter-section spacing-bottom--bigger',
+        data: {
+            filters: filters | map(_filter => _filter | merge({
+                attr: {
+                    class: "#{jsPrefix}#{ _filter.row.vars.name}-target",
+                }
+            })),
+        },
+    } only %}
+{% endblock %}
+
+{% block actions %}
+    {% if can('CreateSspAssetPermissionPlugin') %}
+        <a class="button action-bar__action" data-qa="create-ssp-asset"
+            href="{{ url('customer/ssp-asset/create') }}">
+            {{ 'customer.ssp_asset.create.button' | trans }}
+        </a>
+    {% endif %}
+{% endblock %}

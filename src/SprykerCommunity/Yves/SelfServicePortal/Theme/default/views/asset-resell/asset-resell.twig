@@ -1,0 +1,93 @@
+{% extends template('page-layout-customer', 'CustomerPage') %}
+
+{% define data = {
+    title: 'customer.ssp_asset.resell.title' | trans,
+    asset: _view.asset,
+    form: _view.form,
+} %}
+
+{% block breadcrumbs %}
+    {% include molecule('breadcrumb') with {
+        data: {
+            steps: [
+                {
+                    label: 'customer.account' | trans,
+                    url: url('customer/overview'),
+                },
+                {
+                    label: 'customer.account.ssp_assets' | trans,
+                    url: url('customer/ssp-asset'),
+                },
+                {
+                    label: data.asset.name,
+                    url: url('customer/ssp-asset/details', { reference: data.asset.reference }),
+                },
+                {
+                    label: 'customer.ssp_asset.resell.title' | trans,
+                },
+            ],
+        },
+    } only %}
+{% endblock %}
+
+{% block customerContent %}
+    <div class="box">
+        <h3>{{ 'customer.ssp_asset.resell.title' | trans }}</h3>
+        <p>{{ 'customer.ssp_asset.resell.description' | trans({ '%asset_name%': data.asset.name }) }}</p>
+
+        <div class="grid grid--gap">
+            <div class="col col--sm-12 col--md-6">
+                <div class="box box--small">
+                    <h4>{{ 'customer.ssp_asset.resell.asset_info' | trans }}</h4>
+                    <dl class="list list--description">
+                        <dt>{{ 'customer.ssp_asset.list.reference' | trans }}</dt>
+                        <dd>{{ data.asset.reference }}</dd>
+
+                        <dt>{{ 'customer.ssp_asset.list.name' | trans }}</dt>
+                        <dd>{{ data.asset.name }}</dd>
+
+                        {% if data.asset.serialNumber %}
+                            <dt>{{ 'customer.ssp_asset.list.serial_number' | trans }}</dt>
+                            <dd>{{ data.asset.serialNumber }}</dd>
+                        {% endif %}
+
+                        <dt>{{ 'customer.ssp_asset.list.sku' | trans }}</dt>
+                        <dd>{{ data.asset.sku }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="col col--sm-12 col--md-6">
+                <div class="box box--small">
+                    <h4>{{ 'customer.ssp_asset.resell.form_title' | trans }}</h4>
+
+                    {{ form_start(data.form) }}
+                        <div class="grid grid--gap">
+                            <div class="col col--sm-12">
+                                {{ form_row(data.form.asset_condition, {
+                                    label: 'customer.ssp_asset.resell.condition' | trans,
+                                }) }}
+                            </div>
+
+                            <div class="col col--sm-12">
+                                {{ form_row(data.form.price, {
+                                    label: 'customer.ssp_asset.resell.price' | trans,
+                                }) }}
+                            </div>
+                        </div>
+
+                        <div class="spacing-top spacing-top--big">
+                            <button type="submit" class="button button--success" data-qa="submit-asset-resell">
+                                {{ 'customer.ssp_asset.resell.submit' | trans }}
+                            </button>
+                            <a href="{{ url('customer/ssp-asset/details', { reference: data.asset.reference }) }}"
+                               class="button button--hollow">
+                                {{ 'general.cancel.button' | trans }}
+                            </a>
+                        </div>
+                    {{ form_end(data.form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
