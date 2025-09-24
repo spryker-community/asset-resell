@@ -83,12 +83,7 @@ class Creator
             ->setMerchantReference($merchantTransfer->getMerchantReference())
             ->setIdProductConcrete($idProductConcrete)
             ->setfkSspAsset($sspAssetTransfer->getIdSspAsset())
-            ->setIsActive(true)
-            ->setPrices(new ArrayObject(
-                [
-                    (new PriceProductTransfer())->set
-                ]
-            ));
+            ->setIsActive(true);
 
         return (new ProductOfferFacade())->create($productOfferTransfer);
     }
