@@ -1,6 +1,6 @@
 {
-    "name": "spryker-community/dummy-module",
-    "description": "SprykerCommunity Dummy module",
+    "name": "spryker-community/asset-resell",
+    "description": "SprykerCommunity package to enable reselling assets on a marketplace",
     "type": "library",
     "require": {
         "php": ">=8.1",

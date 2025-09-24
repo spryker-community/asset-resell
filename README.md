@@ -37,7 +37,7 @@ Add the module directory to your main project's .gitignore file to prevent track
 Clone the dummy module repository into the module directory:
 
 ```bash
-git clone git@github.com:spryker-community/dummy-module.git dummy-module
+git clone git@github.com:spryker-community/asset-resell.git asset-resell
 ```
 
 Your directory structure should now look like:
@@ -45,7 +45,7 @@ Your directory structure should now look like:
 ```text
 b2b-demo-shop/
 ├── local-packages/
-│   └── dummy-module/
+│   └── asset-resell/
 │       ├── assets/
 │       │   ├── Zed/
 │       │   │   └── package.json
@@ -68,7 +68,7 @@ Add the path repository configuration to your main project's composer.json:
     "repositories": [
         {
             "type": "path",
-            "url": "local-packages/dummy-module",
+            "url": "local-packages/asset-resell",
             "options": {
                 "symlink": true
             }
@@ -82,7 +82,7 @@ Add the path repository configuration to your main project's composer.json:
 Run the composer require command from your demo shop root directory:
 
 ```bash
-composer require spryker-community/dummy-module:@dev
+composer require spryker-community/asset-resell:@dev
 ```
 
 ### Make your project aware of Spryker Community
@@ -143,4 +143,4 @@ With `ls -la node_modules` you should see that we installed the node modules `du
 ### Verification
 
 After successful installation, you should be able to access the test module at:
-http://backoffice.eu.spryker.local/dummy-module
+http://backoffice.eu.spryker.local/asset-resell
